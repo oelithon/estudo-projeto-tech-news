@@ -39,6 +39,15 @@ def scrape_next_page_link(html_content):
 
 
 # Requisito 4
+def get_summary(html_content):
+    selector = Selector(html_content)
+    summary = selector.css("div.entry-content p:nth-child(2) *::text").getall()
+    first_paragraph = ""
+    for text in summary:
+        first_paragraph += text
+    return first_paragraph
+
+
 def scrape_noticia(html_content):
     selector = Selector(html_content)
 
@@ -49,19 +58,24 @@ def scrape_noticia(html_content):
     comments_count = selector.css(
         "div.post-comments h5.title-block::text"
     ).get()
-    summary = selector.css("div.entry-content p:nth-child(2) *::text").get()
-    tags = selector.css()
-    category = selector.css()
+    summary = get_summary(html_content)
+    tags = selector.css("section.post-tags a::text").getall()
+    category = selector.css("div.meta-category span.label::text").get()
+
+    if comments_count:
+        comments_count = comments_count.split()[0].strip()
+    else:
+        comments_count = 0
 
     newsletter = {
-        url,
-        title,
-        timestamp,
-        writer,
-        comments_count,
-        summary,
-        tags,
-        category,
+        "url": url,
+        "title": title,
+        "timestamp": timestamp,
+        "writer": writer,
+        "comments_count": comments_count,
+        "summary": summary,
+        "tags": tags,
+        "category": category,
     }
     return newsletter
 
