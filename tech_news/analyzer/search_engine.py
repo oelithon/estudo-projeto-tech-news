@@ -43,14 +43,17 @@ def format_date(date):
 
 
 def search_by_date(date):
-    date_formated = format_date(date)
-    news = search_news({"timestamp": {"$regex": date_formated}})
-    news_list = []
+    try:
+        date_formated = format_date(date)
+        news = search_news({"timestamp": {"$regex": date_formated}})
+        news_list = []
 
-    for one_news in news:
-        news_list.append((one_news["title"], one_news["url"]))
+        for one_news in news:
+            news_list.append((one_news["title"], one_news["url"]))
 
-    return news_list
+        return news_list
+    except ValueError:
+        raise ValueError("Data inválida")
 
 
 # Requisito 8
