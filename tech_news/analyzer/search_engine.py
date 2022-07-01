@@ -34,7 +34,6 @@ def format_date(date):
         "12": "dezembro",
     }
 
-    # Fatiamento - https://app.betrybe.com/course/computer-science/redes-e-raspagem-de-dados/raspagem-de-dados/ab38ab4e-bdbd-4984-8987-1abf32d85f26/conteudos/726e3190-54a2-4c75-9c93-02eaf6f5367b/limpeza-de-dados/093cbf98-064a-45d8-b08d-4a1f7f804f3a?use_case=side_bar
     # http://devfuria.com.br/python/sequencias-fatiamento/
     year, month = date[0:4], date[5:7]
     day = date[8:10] if date[8] != "0" else date[9:10]
